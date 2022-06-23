@@ -33,9 +33,15 @@ public class ChambreController {
     @PostMapping("/room/save")
     public String saveRoom(@RequestParam("name") String name, @RequestParam("designation") String designation,
                            @RequestParam("prix") float prix, @RequestParam("devise") String devise, RedirectAttributes ra){
-        service.insererchambre(name,designation,prix,devise);
-        ra.addFlashAttribute("message"," saved succesfuly ");
-        return "redirect:/Showchambre";
+        try{
+            service.insererchambre(name,designation,prix,devise);
+            ra.addFlashAttribute("message"," saved succesfuly ");
+            return "redirect:/Showchambre";
+        }catch (Exception e){
+            ra.addFlashAttribute("message"," cette chambre existe deja ");
+            return "redirect:/chambre/new";
+        }
+
     }
     @PostMapping("/room/update")
     public String updateRoom(Chambres chambre, RedirectAttributes ra){

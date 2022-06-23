@@ -10,12 +10,17 @@ public class MailService {
     @Autowired
     private JavaMailSender mailSender;
     public void sendEmail(String toEmail,String subject,String body){
-        SimpleMailMessage message=new SimpleMailMessage();
-        message.setFrom("vainqueurkambale@gmail.com");
-        message.setTo(toEmail);
-        message.setText(body);
-        message.setSubject(subject);
-        mailSender.send(message);
-        System.out.println("Mail send ...");
+        try{
+            SimpleMailMessage message=new SimpleMailMessage();
+            message.setFrom("vainqueurkambale@gmail.com");
+            message.setTo(toEmail);
+            message.setText(body);
+            message.setSubject(subject);
+            mailSender.send(message);
+            System.out.println("Mail send ...");
+        }catch (Exception e){
+            System.out.println("Pas de connexion pour envoyer le message sur email");
+        }
+
     }
 }

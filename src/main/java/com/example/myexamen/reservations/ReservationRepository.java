@@ -13,6 +13,8 @@ public interface ReservationRepository extends CrudRepository<Reservations, Inte
     public void UpdateChambre(int id);
     @Query(value = "SELECT id FROM chambres WHERE name=?",nativeQuery = true)
     public int GetName(String id);
-//    @Query(value = "SELECT * FROM aff_detail WHERE chambre=?",nativeQuery = true)
-  //  public String getDetail(String name);
+    @Query(value = "SELECT mail FROM clients WHERE id=?",nativeQuery = true)
+    public String getMailClient(int prenom);
+    @Query(value = "SELECT prenom FROM clients WHERE id=?",nativeQuery = true)
+    public String getprenomClient(int idc);
 }

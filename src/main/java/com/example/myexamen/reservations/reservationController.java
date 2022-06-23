@@ -5,6 +5,7 @@ import com.example.myexamen.chambres.ChambreServiceImpl;
 import com.example.myexamen.chambres.Chambres;
 import com.example.myexamen.clients.ClientService;
 import com.example.myexamen.clients.Clients;
+import com.example.myexamen.mailController.MailService;
 import com.example.myexamen.mainPachage.maincontroller;
 import com.example.myexamen.VuePackage.vue;
 import com.example.myexamen.VuePackage.vueRepository;
@@ -29,6 +30,8 @@ public class reservationController {
       @Autowired private vueRepository vueRepos;
       @Autowired private maincontroller maincontroller;
       @Autowired private vueRepository getVueRepos;
+      @Autowired
+    MailService mailService;
 
       @GetMapping("/rapportReservation")
       public String rapportReservat(Model model, HttpSession session){
@@ -66,10 +69,16 @@ public class reservationController {
     @PostMapping("/saveReservation")
     public String insertionReservation(@RequestParam("client") int client,@RequestParam("name") String name,
                                        @RequestParam("prix") float prix,@RequestParam("devise") String devise,
-                                       @RequestParam("debut") String debut,@RequestParam("fin") String fin){
+                                       @RequestParam("debut") String debut,@RequestParam("fin") String fin,RedirectAttributes ra){
         int idc = repositoryReservation.GetName(name);
+        String mail = repositoryReservation.getMailClient(client);
+        String prenomclient = repositoryReservation.getprenomClient(client);
         serviceReservation.insererReservation(client,idc,prix,devise,debut,fin);
         repositoryReservation.UpdateChambre(idc);
+        mailService.sendEmail(mail,"Confirmation de reservation",
+                "SALUT Mr/Mm : " + prenomclient + " VOUS AVEZ RESERVE LA CHAMBRE " + name + " NUMERO " + idc + "," +
+                        " DU " + debut + " AU " + fin + " POUR LE PRIX DE " + prix + " USD PAR JOUR. MERCI !!!. DG Hotel Linda Goma");
+        ra.addFlashAttribute("message","saved succesfuly");
         return "redirect:/showReservation";
     }
     @GetMapping("/chambre/{id}")

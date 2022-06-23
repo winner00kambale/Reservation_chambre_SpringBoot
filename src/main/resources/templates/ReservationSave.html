@@ -33,8 +33,7 @@
                 <div class="row">
                     <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
                         <div class="multisteps-form__progress">
-                            <button class="multisteps-form__progress-btn js-active" type="button" title="User Info">Client Info</button>
-                            <button class="multisteps-form__progress-btn" type="button" title="Address">Address</button>
+                            <button class="multisteps-form__progress-btn js-active" type="button" title="User Info">reservation Info</button>
                         </div>
                     </div>
                 </div>
@@ -52,7 +51,7 @@
                                         </div>
                                         <div class="col-12 col-sm-6 mt-2 mt-sm-0">
                                             <label class="col-form-label-lg">Nom du client</label>
-                                        <select class="multisteps-form__select form-control" name="client">
+                                        <select class="multisteps-form__select form-control" name="client" required>
                                             <option th:value="${cli.id}" th:each="cli:${nomCli}">[[${cli.prenom}]]</option>
                                         </select>
                                     </div>
@@ -70,15 +69,15 @@
                                     <div class="form-row mt-2">
                                         <div class="col-12 col-sm-6">
                                             <label class="col-form-label-lg">Date debut</label>
-                                            <input class="form-control" name="debut" type="date"/>
+                                            <input class="form-control" name="debut" type="date" required/>
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <label class="col-form-label-lg">Date fin</label>
-                                            <input type="date"  class="multisteps-form__input form-control" name="fin"/>
+                                            <input type="date"  class="multisteps-form__input form-control" name="fin" required/>
                                         </div>
                                     </div>
                                     <div class="button-row d-flex mt-2">
-                                        <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Cancel</button>
+                                        <button class="btn btn-info" type="button"><a th:href="@{/showReservation}" class="text-white">Cancel</a></button>
                                         <button class="btn btn-success ml-auto" type="submit" title="Send">Save</button>
                                     </div>
                                 </div>

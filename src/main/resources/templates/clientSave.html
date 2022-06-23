@@ -23,7 +23,9 @@
 
 <div class="main-container">
     <div class="card-box mb-30">
-
+        <div th:if="${message}" class="alert alert-danger text-center">
+            [[${message}]]
+        </div>
         <div class="container overflow-hidden"> <br>
             <h2 class="content__title">Click on steps or 'Prev' and 'Next' buttons</h2>
             <!--multisteps-form-->
@@ -49,18 +51,18 @@
                                 <div class="multisteps-form__content">
                                     <div class="form-row mt-4">
                                         <div class="col-12 col-sm-6">
-                                            <input class="multisteps-form__input form-control" type="text" name="nom" placeholder="saisir le nom"/>
+                                            <input class="multisteps-form__input form-control" type="text" name="nom" placeholder="saisir le nom" required/>
                                         </div>
                                         <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                            <input class="multisteps-form__input form-control" type="text" name="postnom"   placeholder="saisir le postnom"/>
+                                            <input class="multisteps-form__input form-control" type="text" name="postnom"   placeholder="saisir le postnom" required/>
                                         </div>
                                     </div>
                                     <div class="form-row mt-4">
                                         <div class="col-12 col-sm-6">
-                                            <input class="multisteps-form__input form-control" type="text" name="prenom" placeholder="saisir le prenom"/>
+                                            <input class="multisteps-form__input form-control" type="text" name="prenom" placeholder="saisir le prenom" required/>
                                         </div>
                                         <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                            <select class="multisteps-form__select form-control" name="genre">
+                                            <select class="multisteps-form__select form-control" name="genre" required>
                                                 <option selected="selected">selectionnez le genre...</option>
                                                 <option value="M">Masculin</option>
                                                 <option value="F">Feminin</option>
@@ -70,10 +72,10 @@
                                     </div>
                                     <div class="form-row mt-4">
                                         <div class="col-12 col-sm-6">
-                                            <input class="multisteps-form__input form-control" type="text" name="profession" placeholder="saisir la profession"/>
+                                            <input class="multisteps-form__input form-control" type="text" name="profession" placeholder="saisir la profession" required/>
                                         </div>
                                         <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                            <select class="multisteps-form__select form-control" name="etatcivil">
+                                            <select class="multisteps-form__select form-control" name="etatcivil" required>
                                                 <option selected="selected">selectionnez l'etat civil...</option>
 <!--                                                <option>_____ selectionnez l'etat civil </option>-->
                                                 <option value="Marie(e)">Marie(e)</option>
@@ -104,7 +106,7 @@
                                         </div>
                                     </div>
                                     <div class="form-row mt-4">
-                                        <div class="col-12 col-sm-6">
+                                        <div class="col">
                                             <input class="multisteps-form__input form-control" type="email" name="mail" required placeholder="saisir l'adresse Mail"/>
                                         </div>
                                     </div>

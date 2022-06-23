@@ -25,7 +25,7 @@ public class clientController {
         return maincontroller.SecuriteConnexion(model,session,"clients");
 //        return "clients";
     }
-    @GetMapping("showSavecli")
+    @GetMapping("/showSavecli")
     public  String showSavecli(Model model,HttpSession session){
         return maincontroller.SecuriteConnexion(model,session,"clientSave");
 //        return "clientSave";
@@ -36,9 +36,15 @@ public class clientController {
                            @RequestParam("nationalite") String nationalite, @RequestParam("profession") String profession,
                            @RequestParam("etatcivil") String etatcivil, @RequestParam("mail") String mail,
                            @RequestParam("adresse") String adresse, @RequestParam("telephone") String telephone, RedirectAttributes ra){
-        service.insererclient(nom,postnom,prenom,genre,nationalite,profession,etatcivil,mail,adresse,telephone);
-        ra.addFlashAttribute("message","saved succesfuly");
-        return "redirect:/CliensController";
+        try{
+            service.insererclient(nom,postnom,prenom,genre,nationalite,profession,etatcivil,mail,adresse,telephone);
+            ra.addFlashAttribute("message","saved succesfuly");
+            return "redirect:/CliensController";
+        }catch (Exception e){
+            ra.addFlashAttribute("message","ce client existe deja");
+            return "redirect:/showSavecli";
+        }
+
     }
 
     @GetMapping("client/edit/{id}")
@@ -54,8 +60,9 @@ public class clientController {
         }
         }
     @PostMapping("/client/update")
-    public String updateClient(Clients cli){
+    public String updateClient(Clients cli,RedirectAttributes ra){
         service.save(cli);
+        ra.addFlashAttribute("messageUpdate","Updated succesfuly");
         return "redirect:/CliensController";
 
     }
