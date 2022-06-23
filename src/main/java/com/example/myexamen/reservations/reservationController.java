@@ -26,9 +26,16 @@ public class reservationController {
       @Autowired ReservationService serviceReservation;
       @Autowired private ClientService cliservi;
       @Autowired private ReservationRepository repositoryReservation;
-    @Autowired private vueRepository vueRepos;
-    @Autowired private maincontroller maincontroller;
+      @Autowired private vueRepository vueRepos;
+      @Autowired private maincontroller maincontroller;
+      @Autowired private vueRepository getVueRepos;
 
+      @GetMapping("/rapportReservation")
+      public String rapportReservat(Model model, HttpSession session){
+          List<vue> rappot = getVueRepos.All();
+          model.addAttribute("rappot",rappot);
+          return maincontroller.SecuriteConnexion(model,session,"ListReservation");
+      }
     @GetMapping("/showReservation")
     public String showreservation(Model model, HttpSession session){
     List<Chambres> chambreLibre = service.listAllByEtat();

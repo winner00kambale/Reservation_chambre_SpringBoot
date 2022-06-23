@@ -1,5 +1,8 @@
 package com.example.myexamen.mainPachage;
 
+import com.example.myexamen.mailController.MailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,8 @@ import java.util.List;
 
 @Controller
 public class maincontroller {
+    @Autowired
+    MailService mailService;
     @GetMapping("/")
     public String showHome(Model model, HttpSession session){
         return ""+SecuriteConnexion(model,session,"index");
@@ -26,5 +31,9 @@ public class maincontroller {
     public String showLoginPage(HttpServletRequest request){
         request.getSession().invalidate();
         return "login";
+    }
+    @GetMapping("/sendMail")
+    public void sendMail(){
+        mailService.sendEmail("kambalekarah@icloud.com","salutation","salut bro");
     }
 }
