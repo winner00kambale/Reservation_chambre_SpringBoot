@@ -1,0 +1,97 @@
+
+<link rel="apple-touch-icon" sizes="180x180" href="/vendors/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/vendors/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/vendors/images/favicon-16x16.png">
+
+<!-- Mobile Specific Metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="/vendors/styles/core.css">
+<link rel="stylesheet" type="text/css" href="/vendors/styles/icon-font.min.css">
+<link rel="stylesheet" type="text/css" href="/vendors/styles/style.css">
+
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet"><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+<link rel="stylesheet" href="/style.css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+
+<th th:include="nivebar.html"></th>
+
+
+<!--main original-->
+
+<div class="main-container">
+    <div class="card-box mb-30">
+
+        <div class="container overflow-hidden"> <br>
+            <div class="multisteps-form">
+                <!--progress bar-->
+                <div class="row">
+                    <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
+                        <div class="multisteps-form__progress">
+<!--                            <button class="multisteps-form__progress-btn js-active" type="button" title="User Info">Client Info</button>-->
+<!--                            <button class="multisteps-form__progress-btn" type="button" title="Address">Address</button>-->
+                        </div>
+                    </div>
+                </div>
+                <!--form panels-->
+                <div class="row">
+                    <div class="col-12 col-lg-7 m-auto">
+                        <form class="multisteps-form__form" action="" >
+                            <div class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
+                                <h3 class="multisteps-form__title text-center">Details sur la reservation</h3>
+                                <div class="multisteps-form__content">
+                                    <table class="table table-hover table-bordered">
+                                        <thead>
+
+                                        </thead>
+                                        <tbody>
+                                        <th:block th:each=" detail : ${liste}">
+                                            <tr>
+                                                <td>* Numero : [[${detail.id}]]</td>
+                                                <td>* Nom Client : [[${detail.client}]]</td>
+                                                <td>* Chambre : [[${detail.chambre}]]</td>
+                                            </tr>
+                                            <tr>
+                                                <td>* Prix/jour : [[${detail.prix}]]  USD</td>
+                                                <td>* Du : [[${detail.debut}]]</td>
+                                                <td>* Au : [[${detail.fin}]]</td>
+                                            </tr>
+                                            <tr>
+                                                <td>* Nombre/jours : [[${detail.nombre_jours}]]</td>
+                                                <td>* Jours Restant : [[${detail.Jours_restant}]]</td>
+                                                <td style="color: #a92222;">* Montant : [[${detail.montant}]] USD</td>
+                                            </tr>
+                                        </th:block>
+                                        </tbody>
+                                    </table>
+
+<!--                                    <input class="multisteps-form__input form-control" type="text" name="devise" th:field="*{detail.chambre}" placeholder="saisir la devise" readonly/>-->
+                                    <div class="button-row d-flex mt-2">
+                                        <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <!--        </div>-->
+        </div>
+    </div>
+</div>
+
+<!-- js -->
+<script src="/vendors/scripts/core.js"></script>
+<script src="/vendors/scripts/script.min.js"></script>
+<script src="/vendors/scripts/process.js"></script>
+<script src="/vendors/scripts/layout-settings.js"></script>
+
+<script  src="/script.js"></script>
+
+<script src="/vendors/scripts/dashboard.js"></script>

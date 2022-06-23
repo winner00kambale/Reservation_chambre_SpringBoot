@@ -1,0 +1,110 @@
+
+<link rel="apple-touch-icon" sizes="180x180" href="/vendors/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/vendors/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/vendors/images/favicon-16x16.png">
+
+<!-- Mobile Specific Metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="/vendors/styles/core.css">
+<link rel="stylesheet" type="text/css" href="/vendors/styles/icon-font.min.css">
+<link rel="stylesheet" type="text/css" href="/vendors/styles/style.css">
+
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet"><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+<link rel="stylesheet" href="/style.css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+
+<th th:include="nivebar.html"></th>
+
+
+<!--main original-->
+
+<div class="main-container">
+    <div class="card-box mb-30">
+
+        <div class="container overflow-hidden"> <br>
+            <div class="multisteps-form">
+                <!--progress bar-->
+                <div class="row">
+                    <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
+                        <div class="multisteps-form__progress">
+                            <button class="multisteps-form__progress-btn js-active" type="button" title="User Info">Infos Chambre</button>
+                            <button class="multisteps-form__progress-btn" type="button" title="Address">Address</button>
+                        </div>
+                    </div>
+                </div>
+                <!--form panels-->
+                <div class="row">
+                    <div class="col-12 col-lg-8 m-auto">
+                        <form class="multisteps-form__form" th:action="@{/room/update}" method="post" th:object="${chambre}">
+                            <div class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
+                                <h3 class="multisteps-form__title">Modifier ce client</h3>
+                                <div class="multisteps-form__content">
+                                    <div class="form-row mt-4">
+                                        <input type="hidden" th:field="*{id}">
+                                        <div class="col-12 col-sm-6">
+                                            <label class="col-form-label-lg">Nom de la chambre</label>
+                                            <input class="multisteps-form__input form-control" type="text" th:field="*{name}" placeholder="saisir le nom de la chambre"/>
+                                        </div>
+                                        <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                            <label class="col-form-label-lg">Designation de la chambre</label>
+                                            <input class="multisteps-form__input form-control" type="text" th:field="*{designation}"   placeholder="saisir la designation"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mt-4">
+                                        <div class="col-12 col-sm-6">
+                                            <label class="col-form-label-lg">Prix par jour</label>
+                                            <input class="multisteps-form__input form-control" type="number" min="0" oninput="this.value=Math.abs(this.value)" th:field="*{prix}" placeholder=""/>
+                                        </div>
+                                        <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                            <label class="col-form-label-lg">Devise</label>
+                                            <input class="multisteps-form__input form-control" type="text" th:field="*{devise}" placeholder="saisir la devise"/>
+                                        </div>
+                                    </div>
+                                    <div class="button-row d-flex mt-4">
+                                        <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--single form panel-->
+                            <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                <h3 class="multisteps-form__title">etat de la chambre</h3>
+                                <div class="multisteps-form__content">
+                                    <div class="form-row mt-4">
+                                        <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                            <label class="col-form-label-lg">etat chambre</label>
+                                            <input class="multisteps-form__input form-control" type="text" th:field="*{etat}" placeholder="saisir la devise" readonly/>
+                                        </div>
+                                    </div>
+
+                                    <div class="button-row d-flex mt-4">
+                                        <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
+                                        <button class="btn btn-success ml-auto" type="submit" title="Send">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <!--        </div>-->
+        </div>
+    </div>
+</div>
+
+<!-- js -->
+<script src="/vendors/scripts/core.js"></script>
+<script src="/vendors/scripts/script.min.js"></script>
+<script src="/vendors/scripts/process.js"></script>
+<script src="/vendors/scripts/layout-settings.js"></script>
+
+<!--<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'></script>-->
+<script  src="/script.js"></script>
+
+<script src="/vendors/scripts/dashboard.js"></script>

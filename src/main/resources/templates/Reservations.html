@@ -1,0 +1,145 @@
+
+<link rel="apple-touch-icon" sizes="180x180" href="/vendors/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/vendors/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/vendors/images/favicon-16x16.png">
+
+<!-- Mobile Specific Metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="/vendors/styles/core.css">
+<link rel="stylesheet" type="text/css" href="/vendors/styles/icon-font.min.css">
+<link rel="stylesheet" type="text/css" href="/vendors/styles/style.css">
+
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet"><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+<link rel="stylesheet" href="/style.css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+
+<th th:include="nivebar.html"></th>
+
+
+<!--main original-->
+
+<div class="main-container">
+    <div class="card-box mb-30">
+
+        <div class="container overflow-hidden"> <br>
+            <!--multisteps-form-->
+            <div class="multisteps-form">
+                <!--progress bar-->
+                <div class="row">
+                    <div class="col-12 col-lg-8 ml-auto mr-auto mb-2">
+                        <div class="multisteps-form__progress">
+                            <button class="multisteps-form__progress-btn js-active" type="button" title="User Info">Chambres libres</button>
+                            <button class="multisteps-form__progress-btn" type="button" title="Address">Chambres occupees</button>
+                        </div>
+                    </div>
+                </div>
+                <!--form panels-->
+                <div class="row">
+                    <div class="col-12 col-lg-10 m-auto">
+                        <form class="multisteps-form__form">
+                            <div class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
+                                <h4 class="multisteps-form__title">Chambres libres</h4>
+                                <div class="multisteps-form__content">
+<!--                                    <div class="form-row mt-4">-->
+                                        <table class="table hover multiple-select-row data-table-export nowrap table-sm">
+                                            <thead>
+                                            <tr>
+                                                <th class="table-plus datatable-nosort">#</th>
+                                                <th>nom chambre</th>
+                                                <th>designation</th>
+                                                <th>prix</th>
+                                                <th>devise</th>
+                                                <th>etat</th>
+                                                <th>Params</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <th:block th:each=" libre : ${chambreLibre}">
+                                                <tr>
+                                                    <td class="table-plus" style="text-align: center">[[${libre.id}]]</td>
+                                                    <td style="text-align: center">[[${libre.name}]]</td>
+                                                    <td style="text-align: center">[[${libre.designation}]]</td>
+                                                    <td style="text-align: center">[[${libre.prix}]]</td>
+                                                    <td style="text-align: center">[[${libre.devise}]]</td>
+                                                    <td style="text-align: center;color: darkred;">[[${libre.etat}]]</td>
+                                                    <td>
+                                                        <a th:href="@{/reservation/add/{id}(id=${libre.id})}" class="fa fa-pencil mr-3 btn btn-sm btn-info" aria-hidden="true">Reserver</a>
+                                                    </td>
+                                                </tr>
+                                            </th:block>
+                                            </tbody>
+                                        </table>
+
+<!--                                    </div>-->
+
+                                    <div class="button-row d-flex mt-4">
+                                        <button class="btn btn-info ml-auto js-btn-next" type="button" title="Next">Next</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--single form panel-->
+                            <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                <h4 class="multisteps-form__title">Chambres Occupees</h4>
+                                <div class="multisteps-form__content">
+
+                                    <table class="table hover multiple-select-row data-table-export nowrap table-sm">
+                                        <thead>
+                                        <tr>
+                                            <th class="table-plus datatable-nosort">#</th>
+                                            <th>nom chambre</th>
+                                            <th>designation</th>
+                                            <th>prix</th>
+                                            <th>devise</th>
+                                            <th>etat</th>
+                                            <th>Params</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <th:block th:each=" occupee : ${chambreOccupee}">
+                                            <tr>
+                                                <td class="table-plus" style="text-align: center">[[${occupee.id}]]</td>
+                                                <td style="text-align: center">[[${occupee.name}]]</td>
+                                                <td style="text-align: center">[[${occupee.designation}]]</td>
+                                                <td style="text-align: center">[[${occupee.prix}]]</td>
+                                                <td style="text-align: center">[[${occupee.devise}]]</td>
+                                                <td style="text-align: center; color: darkred;">[[${occupee.etat}]]</td>
+                                                <td>
+                                                    <a th:href="@{/chambre/{id}(id=${occupee.id})}" class="btn btn-info btn-sm fa-pencil mr-3" aria-hidden="true">Details</a>
+                                                </td>
+                                            </tr>
+                                        </th:block>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="button-row d-flex mt-4">
+                                        <button class="btn btn-info js-btn-prev" type="button" title="Prev">Prev</button>
+                                        <button class="btn btn-info ml-auto" type="button" title="Send">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <!--        </div>-->
+        </div>
+    </div>
+</div>
+
+<!-- js -->
+<script src="/vendors/scripts/core.js"></script>
+<script src="/vendors/scripts/script.min.js"></script>
+<script src="/vendors/scripts/process.js"></script>
+<script src="/vendors/scripts/layout-settings.js"></script>
+
+<!--<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'></script>-->
+<script  src="/script.js"></script>
+
+<script src="/vendors/scripts/dashboard.js"></script>

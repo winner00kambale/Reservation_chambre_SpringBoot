@@ -1,0 +1,99 @@
+
+<!-- Site favicon -->
+<link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png">
+
+<!-- Mobile Specific Metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" type="text/css" href="vendors/styles/core.css">
+<link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-119386393-1');
+</script>
+<th th:include="nivebar.html"></th>
+<div class="main-container">
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+    <div class="card-box mb-30">
+        <div class="pd-10">
+            <a th:href="@{/showSavecli}" class="btn btn-primary">new custom</a>
+        </div>
+        <div class="pb-20 m-3">
+            <table class="table hover multiple-select-row data-table-export table-sm nowrap">
+                <thead>
+                    <tr>
+                        <th>Edit</th>
+                        <th class="table-plus datatable-nosort">#</th>
+                        <th>nom</th>
+                        <th>postnom</th>
+                        <th>prenom</th>
+                        <th>sexe</th>
+                        <th>nationalite</th>
+                        <th>profession</th>
+                        <th>etatcivil</th>
+                        <th>mail</th>
+                        <th>adresse</th>
+                        <th>telephone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <th:block th:each=" client : ${Listclients}">
+                    <tr>
+                        <td>
+                            <a th:href="@{/client/edit/{id}(id=${client.id})}" class="fa fa-pencil mr-3" aria-hidden="true"></a>
+                        </td>
+                        <td class="table-plus">[[${client.id}]]</td>
+                        <td>[[${client.nom}]]</td>
+                        <td>[[${client.postnom}]]</td>
+                        <td>[[${client.prenom}]]</td>
+                        <td>[[${client.genre}]]</td>
+                        <td>[[${client.nationalite}]]</td>
+                        <td>[[${client.profession}]]</td>
+                        <td>[[${client.etatcivil}]]</td>
+                        <td>[[${client.mail}]]</td>
+                        <td>[[${client.adresse}]]</td>
+                        <td>[[${client.telephone}]]</td>
+
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- js -->
+<script src="vendors/scripts/core.js"></script>
+<script src="vendors/scripts/script.min.js"></script>
+<script src="vendors/scripts/process.js"></script>
+<script src="vendors/scripts/layout-settings.js"></script>
+<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+<!-- buttons for Export datatable -->
+<script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.print.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
+<script src="src/plugins/datatables/js/pdfmake.min.js"></script>
+<script src="src/plugins/datatables/js/vfs_fonts.js"></script>
+<!-- Datatable Setting js -->
+<script src="vendors/scripts/datatable-setting.js"></script></body>
