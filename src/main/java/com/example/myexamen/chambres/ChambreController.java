@@ -1,6 +1,8 @@
 package com.example.myexamen.chambres;
 
+import com.example.myexamen.PdfModel;
 import com.example.myexamen.mainPachage.maincontroller;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -18,6 +25,7 @@ public class ChambreController {
 
     @Autowired private ChambreServiceImpl service;
     @Autowired private maincontroller maincontroller;
+    @Autowired private PdfModel pdfModel;
     @GetMapping("Showchambre")
     public String ShowChambre(Model model, HttpSession session){
         List<Chambres> chambrelist=service.listAll();
@@ -69,6 +77,16 @@ public class ChambreController {
             ra.addFlashAttribute("message",e.getMessage());
         }
         return "redirect:/Showchambre";
+    }
+    @GetMapping("/chambre/pdf")
+    public void exporttoPDF(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter=new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentateTime=dateFormatter.format(new Date(0));
+        String headerkey="Content-Disposition";
+        String headerValue="attachment;filename=LISTE DE CHAMBRE"+currentateTime+".pdf";
+        response.setHeader(headerkey,headerValue);
+        pdfModel.export(response);
     }
 
 }

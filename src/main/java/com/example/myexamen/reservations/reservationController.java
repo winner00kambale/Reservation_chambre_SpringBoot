@@ -1,5 +1,6 @@
 package com.example.myexamen.reservations;
 
+import com.example.myexamen.PdfModel;
 import com.example.myexamen.chambres.ChambreNotFoundException;
 import com.example.myexamen.chambres.ChambreServiceImpl;
 import com.example.myexamen.chambres.Chambres;
@@ -9,6 +10,7 @@ import com.example.myexamen.mailController.MailService;
 import com.example.myexamen.mainPachage.maincontroller;
 import com.example.myexamen.VuePackage.vue;
 import com.example.myexamen.VuePackage.vueRepository;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +20,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -30,8 +37,8 @@ public class reservationController {
       @Autowired private vueRepository vueRepos;
       @Autowired private maincontroller maincontroller;
       @Autowired private vueRepository getVueRepos;
-      @Autowired
-    MailService mailService;
+      @Autowired private MailService mailService;
+      @Autowired private PdfModel pdfModel;
 
       @GetMapping("/rapportReservation")
       public String rapportReservat(Model model, HttpSession session){
@@ -87,5 +94,15 @@ public class reservationController {
             model.addAttribute("liste",liste);
         return maincontroller.SecuriteConnexion(model,session,"DetailReservation");
 //            return "DetailReservation";
+    }
+    @GetMapping("/attest/pdf/{id}")
+    public void exportAttest(HttpServletResponse response,@PathVariable("id") Integer id) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter=new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentateTime=dateFormatter.format(new Date(0));
+        String headerkey="Content-Disposition";
+        String headerValue="attachment;filename=ATTESTATION RESERVATION"+currentateTime+".pdf";
+        response.setHeader(headerkey,headerValue);
+        pdfModel.exportAttestation(response,id);
     }
 }

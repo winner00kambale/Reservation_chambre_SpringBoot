@@ -38,12 +38,13 @@
                     <th class="table-plus datatable-nosort">#</th>
                     <th>nom chambre</th>
                     <th>designation</th>
-                    <th>prix/jour</th>
+                    <th>prix/jr</th>
                     <th>date debut</th>
                     <th>date fin</th>
-                    <th>nombre jours</th>
+                    <th>nbre jours</th>
 <!--                    <th>jours restant</th>-->
-                    <th>montant total</th>
+                    <th>total</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -58,6 +59,9 @@
                         <td>[[${res.nombre_jours}]]</td>
 <!--                        <td>[[${res.Jours_restant}]]</td>-->
                         <td>[[${res.montant}]] USD</td>
+                        <td>
+                            <a th:href="@{/attest/pdf/{id}(id=${res.id})}" class="fa fa-pencil mr-3" >Imprimer</a>
+                        </td>
                     </tr>
                 </th:block>
                 </tbody>
