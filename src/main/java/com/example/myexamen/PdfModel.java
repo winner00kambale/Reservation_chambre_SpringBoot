@@ -55,44 +55,63 @@ public class PdfModel {
             table.addCell(chambre.getEtat());
         }
     }
-    private void AttestationReservation(PdfPTable table,Integer id){
-        List<vue> vues = vueRepository.AllbyId(id);
-        for (vue listvues : vues){
-            table.addCell("Nom Client(e) : " + listvues.getClient() + " ," +
-                    " reserve la chambre " + listvues.getChambre() + " , " +
-                    " pendant " + listvues.getNombre_jours() + " jours allant du " + listvues.getDebut() + "" +
-                    " au " + listvues.getFin() + " . Le prix de la chambre est de " +
-                    listvues.getPrix() + " USD par jour et le montant total paye est de " + listvues.getMontant() + " USD ");
-        }
+    private void AttestationReservation(PdfPTable table){
+//        List<vue> vues = vueRepository.AllbyId(id);
+//        for (vue listvues : vues){
+//            Font font1=FontFactory.getFont(FontFactory.TIMES_ROMAN);
+//            font1.setSize(12);
+//            font1.setColor(Color.black);
+//
+//            Paragraph p=new Paragraph("Nom client : " + listvues.getClient(),font1);
+//            p.setAlignment(Paragraph.ALIGN_CENTER);
+//            table.addCell("Nom Client(e) : " + listvues.getClient() + " ," +
+//                    " reserve la chambre " + listvues.getChambre() + " , " +
+//                    " pendant " + listvues.getNombre_jours() + " jours allant du " + listvues.getDebut() + "" +
+//                    " au " + listvues.getFin() + " . Le prix de la chambre est de " +
+//                    listvues.getPrix() + " USD par jour et le montant total paye est de " + listvues.getMontant() + " USD ");
+//        }
     }
     public void exportAttestation(HttpServletResponse response,Integer id) throws DocumentException, IOException{
         Document document=new Document(PageSize.A6);
         PdfWriter.getInstance(document,response.getOutputStream());
         document.open();
+        Font fontl=FontFactory.getFont(FontFactory.TIMES);
+        fontl.setSize(10);
+        fontl.setColor(Color.black);
+        Paragraph pl=new Paragraph("___________________________________________",fontl);
+        pl.setAlignment(Paragraph.ALIGN_CENTER);
         Font font1=FontFactory.getFont(FontFactory.TIMES_ROMAN);
-        font1.setSize(12);
+        font1.setSize(10);
         font1.setColor(Color.black);
-        Font font=FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-        font.setSize(14);
+        Font font0=FontFactory.getFont(FontFactory.TIMES_BOLD);
+        font0.setSize(12);
+        font0.setColor(Color.black);
+        Font font=FontFactory.getFont(FontFactory.TIMES_ITALIC);
+        font.setSize(12);
         font.setColor(Color.BLACK);
         Paragraph p1=new Paragraph("Hotel Linda Goma",font1);
         p1.setAlignment(Paragraph.ALIGN_LEFT);
+        Paragraph p0=new Paragraph("ATESTATION DE RESERVATION DE LA CHAMBRE",font0);
+        p0.setAlignment(Paragraph.ALIGN_CENTER);
         Font font2=FontFactory.getFont(FontFactory.TIMES_ROMAN);
-        font2.setSize(12);
+        font2.setSize(10);
         font2.setColor(Color.black);
         Font font3=FontFactory.getFont(FontFactory.TIMES_ROMAN);
-        font3.setSize(12);
+        font3.setSize(10);
         font3.setColor(Color.black);
         Paragraph p3=new Paragraph("lindahotelgoma@gmail.com",font3);
         p3.setAlignment(Paragraph.ALIGN_LEFT);
         Paragraph p2=new Paragraph("Q. Mapendo,Comm. De Goma",font2);
         p2.setAlignment(Paragraph.ALIGN_LEFT);
-        Paragraph p=new Paragraph("ATTESTATION DE RESERVATION DE CHAMBRE",font);
-        p.setAlignment(Paragraph.ALIGN_CENTER);
+        Paragraph p=new Paragraph(""+vueRepository.AllbyId(id) +" USD",font);
+        p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
         document.add(p1);
         document.add(p2);
         document.add(p3);
+        document.add(p0);
+        document.add(pl);
         document.add(p);
+        document.add(pl);
         Font font4=FontFactory.getFont(FontFactory.TIMES_ROMAN);
         font4.setSize(12);
         font4.setColor(Color.black);
@@ -102,7 +121,7 @@ public class PdfModel {
         table.setWidthPercentage(95f);
         table.setWidths(new float[]{6.2f});
         table.setSpacingBefore(10);
-        AttestationReservation(table,id);
+        AttestationReservation(table);
         document.add(table);
         document.add(p4);
         document.close();

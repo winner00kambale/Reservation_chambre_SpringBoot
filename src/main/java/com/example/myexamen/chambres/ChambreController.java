@@ -36,7 +36,6 @@ public class ChambreController {
     public String showNewRoom(Model model,HttpSession session){
         model.addAttribute("chambre", new Chambres());
         return maincontroller.SecuriteConnexion(model,session,"ChambreSave");
-//        return "ChambreSave";
     }
     @PostMapping("/room/save")
     public String saveRoom(@RequestParam("name") String name, @RequestParam("designation") String designation,

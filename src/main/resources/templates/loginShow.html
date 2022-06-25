@@ -26,10 +26,16 @@
 
 <div class="main-container">
   <div class="card-box mb-30">
-<!--    <div th:if="${message}" class="alert alert-success text-center">-->
-<!--      [[${message}]]-->
-<!--    </div>-->
-    <div class="container overflow-hidden"> <br>
+    <div th:if="${message}" class="alert alert-danger text-center">
+      [[${message}]]
+    </div>
+    <div th:if="${message1}" class="alert alert-danger text-center">
+      [[${message1}]]
+    </div>
+    <div class="container overflow-hidden"><br>
+      <div class="pd-10">
+        <a th:href="@{/calSave}" class="btn btn-info text-white" style="border-radius: 15px;">new user</a>
+      </div>
       <!--multisteps-form-->
       <div class="multisteps-form">
         <!--progress bar-->
@@ -65,7 +71,7 @@
                         <td style="text-align: center">[[${login.mail}]]</td>
                         <td style="text-align: center">[[${login.password}]]</td>
                         <td>
-                          <a href="" class="fa fa-pencil mr-3" aria-hidden="true"></a>
+                          <a th:href="@{/login/edit/{id}(id=${login.id})}" class="fa fa-pencil mr-3" aria-hidden="true"></a>
                         </td>
                       </tr>
                     </th:block>

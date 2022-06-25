@@ -36,8 +36,8 @@
                 <thead>
                 <tr>
                     <th class="table-plus datatable-nosort">#</th>
-                    <th>nom chambre</th>
-                    <th>designation</th>
+                    <th>client</th>
+                    <th>chambre</th>
                     <th>prix/jr</th>
                     <th>date debut</th>
                     <th>date fin</th>
@@ -60,7 +60,7 @@
 <!--                        <td>[[${res.Jours_restant}]]</td>-->
                         <td>[[${res.montant}]] USD</td>
                         <td>
-                            <a th:href="@{/attest/pdf/{id}(id=${res.id})}" class="fa fa-pencil mr-3" >Imprimer</a>
+                            <a th:href="@{/attest/pdf/{id}(id=${res.id})}" class="fa fa-pencil mr-3" >print</a>
                         </td>
                     </tr>
                 </th:block>
