@@ -53,7 +53,7 @@ public class ChambreController {
     @PostMapping("/room/update")
     public String updateRoom(Chambres chambre, RedirectAttributes ra){
         service.save(chambre);
-        ra.addFlashAttribute("message"," Room updated succesfuly ");
+        ra.addFlashAttribute("message"," Room updated successfuly ");
         return "redirect:/Showchambre";
     }
     @GetMapping("/chambre/edit/{id}")

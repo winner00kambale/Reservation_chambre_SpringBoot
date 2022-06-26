@@ -1,18 +1,16 @@
 package com.example.myexamen;
 
-import com.example.myexamen.VuePackage.vue;
 import com.example.myexamen.VuePackage.vueRepository;
 import com.example.myexamen.chambres.ChambreServiceImpl;
 import com.example.myexamen.chambres.Chambres;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
+import com.lowagie.text.Image;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
@@ -56,20 +54,6 @@ public class PdfModel {
         }
     }
     private void AttestationReservation(PdfPTable table){
-//        List<vue> vues = vueRepository.AllbyId(id);
-//        for (vue listvues : vues){
-//            Font font1=FontFactory.getFont(FontFactory.TIMES_ROMAN);
-//            font1.setSize(12);
-//            font1.setColor(Color.black);
-//
-//            Paragraph p=new Paragraph("Nom client : " + listvues.getClient(),font1);
-//            p.setAlignment(Paragraph.ALIGN_CENTER);
-//            table.addCell("Nom Client(e) : " + listvues.getClient() + " ," +
-//                    " reserve la chambre " + listvues.getChambre() + " , " +
-//                    " pendant " + listvues.getNombre_jours() + " jours allant du " + listvues.getDebut() + "" +
-//                    " au " + listvues.getFin() + " . Le prix de la chambre est de " +
-//                    listvues.getPrix() + " USD par jour et le montant total paye est de " + listvues.getMontant() + " USD ");
-//        }
     }
     public void exportAttestation(HttpServletResponse response,Integer id) throws DocumentException, IOException{
         Document document=new Document(PageSize.A6);
@@ -131,6 +115,9 @@ public class PdfModel {
         Document document=new Document(PageSize.A4);
         PdfWriter.getInstance(document,response.getOutputStream());
         document.open();
+//        Image image = Image.getInstance("E:\\Mes documents\\Mes projets\\IdeaProjects\\Reservation_chambre_SpringBoot\\src\\main\\resources\\static\\src\\images\\linda.png");
+//        image.scaleAbsolute(80,80);
+//        image.setAlignment(Paragraph.ALIGN_RIGHT);
         Font font1=FontFactory.getFont(FontFactory.TIMES_ROMAN);
         font1.setSize(12);
         font1.setColor(Color.black);
@@ -154,6 +141,7 @@ public class PdfModel {
         document.add(p1);
         document.add(p2);
         document.add(p3);
+//        document.add(image);
         document.add(p);
         PdfPTable table=new PdfPTable(6);
         table.setWidthPercentage(100f);
