@@ -19,19 +19,16 @@
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-119386393-1');
-</script>
 <th th:include="nivebar.html"></th>
 <div class="main-container">
-    <div class="card-box mb-30">
-        <br><button class="btn btn-info btn-sm ml-2" type="button"><a th:href="@{/reservationExcel}" class="text-white">File Excel</a></button>
+    <div class="card-box mb-30"><br>
+            <form action="/rapport/pdf" method="post">
+                <input type="date" class="form-control ml-2 col-2" name="date" id="date" style="border-radius: 15px;" required>
+                <button class="btn btn-info btn-sm ml-2 mt-1" type="button" style="border-radius: 15px;"><a th:href="@{/reservationExcel}" class="text-white">File Excel</a></button>
+                <button class="btn btn-info btn-sm ml-2 mt-1" type="submit" style="border-radius: 15px;">Rapport</button>
+            </form>
         <div class="pb-20 m-3 ">
-            <h4 style="text-align: center;color: #23272b;text-decoration: underline;">Rapport des Reservations</h4>
+            <h6 style="text-align: center;color: #23272b;text-decoration: underline;">Rapport des Reservations</h6>
             <table class="data-table table hover multiple-select-row nowrap ">
                 <thead>
                 <tr>
@@ -42,7 +39,6 @@
                     <th>date debut</th>
                     <th>date fin</th>
                     <th>nbre jours</th>
-<!--                    <th>jours restant</th>-->
                     <th>total</th>
                     <th>Action</th>
                 </tr>
@@ -57,7 +53,6 @@
                         <td>[[${res.debut}]]</td>
                         <td>[[${res.fin}]]</td>
                         <td>[[${res.nombre_jours}]]</td>
-<!--                        <td>[[${res.Jours_restant}]]</td>-->
                         <td>[[${res.montant}]] USD</td>
                         <td>
                             <a th:href="@{/attest/pdf/{id}(id=${res.id})}" class="fa fa-pencil mr-3" >print</a>

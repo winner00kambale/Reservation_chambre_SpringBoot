@@ -40,5 +40,7 @@ public class ClientService {
         }
             throw new RuntimeException(" ce client n'existe pas avec l'id ::" +id);
         }
-
+    public void countClient(){
+        long id = repo.count();
+    }
 }

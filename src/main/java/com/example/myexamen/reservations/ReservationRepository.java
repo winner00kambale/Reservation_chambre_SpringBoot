@@ -17,4 +17,6 @@ public interface ReservationRepository extends CrudRepository<Reservations, Inte
     public String getMailClient(int prenom);
     @Query(value = "SELECT prenom FROM clients WHERE id=?",nativeQuery = true)
     public String getprenomClient(int idc);
+    @Query(value = "SELECT COUNT(*) FROM `reservations` WHERE debut=CURDATE();",nativeQuery = true)
+    public int allByDate();
 }

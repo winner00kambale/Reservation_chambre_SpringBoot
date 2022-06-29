@@ -1,5 +1,6 @@
 package com.example.myexamen;
 
+import com.example.myexamen.VuePackage.vue;
 import com.example.myexamen.VuePackage.vueRepository;
 import com.example.myexamen.chambres.ChambreServiceImpl;
 import com.example.myexamen.chambres.Chambres;
@@ -40,6 +41,42 @@ public class PdfModel {
         table.addCell(cell);
         cell.setPhrase(new Phrase("etat chambre",font));
         table.addCell(cell);
+    }
+    private void writeTableRapportHeader(PdfPTable table) {
+        PdfPCell cell = new PdfPCell();
+        cell.setBackgroundColor(Color.white);
+        cell.setPadding(5);
+        Font font = FontFactory.getFont(FontFactory.COURIER);
+        font.setColor(Color.BLACK);
+        cell.setPhrase(new Phrase("ID",font));
+        table.addCell(cell);
+        cell.setPhrase(new Phrase("Nom client",font));
+        table.addCell(cell);
+        cell.setPhrase(new Phrase("Chambre",font));
+        table.addCell(cell);
+        cell.setPhrase(new Phrase("Prix/Jour",font));
+        table.addCell(cell);
+        cell.setPhrase(new Phrase("Date debut",font));
+        table.addCell(cell);
+        cell.setPhrase(new Phrase("Date fin",font));
+        table.addCell(cell);
+        cell.setPhrase(new Phrase("Nombre jours",font));
+        table.addCell(cell);
+        cell.setPhrase(new Phrase("Montant total",font));
+        table.addCell(cell);
+    }
+    private void ReservationJournalier(PdfPTable table,String date){
+      List<vue> vues = vueRepository.AllByDate(date);
+      for (vue vue : vues){
+          table.addCell(""+vue.getId());
+          table.addCell(vue.getClient());
+          table.addCell(vue.getChambre());
+          table.addCell(""+vue.getPrix()+ "USD");
+          table.addCell(vue.getDebut());
+          table.addCell(vue.getFin());
+          table.addCell(""+vue.getNombre_jours());
+          table.addCell(""+vue.getMontant() +"USD");
+      }
     }
     private void writeTableData(PdfPTable table){
         List<Chambres> listchambre = chambreService.listAll();
@@ -86,6 +123,30 @@ public class PdfModel {
         table.setWidths(new float[]{6.2f});
         table.setSpacingBefore(10);
         AttestationReservation(table);
+        document.add(table);
+        document.add(p4);
+        document.close();
+        document.open();
+    }
+    public void ExportRapport(HttpServletResponse response, String date)throws DocumentException, IOException{
+        Document document=new Document(PageSize.A4);
+        PdfWriter.getInstance(document,response.getOutputStream());
+        document.open();
+        Font font0=FontFactory.getFont(FontFactory.HELVETICA);
+        font0.setSize(11);
+        font0.setColor(Color.BLACK);
+        Paragraph p4=new Paragraph("Agent Hotel Linda Goma",font0);
+        p4.setAlignment(Paragraph.ALIGN_RIGHT);
+        Image image = Image.getInstance("C:\\images\\rapport.gif");
+        image.scaleAbsolute(527,60);
+        image.setAlignment(Paragraph.ALIGN_CENTER);
+        document.add(image);
+        PdfPTable table=new PdfPTable(8);
+        table.setWidthPercentage(100f);
+        table.setWidths(new float[]{1.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f});
+        table.setSpacingBefore(10);
+        writeTableRapportHeader(table);
+        ReservationJournalier(table,date);
         document.add(table);
         document.add(p4);
         document.close();

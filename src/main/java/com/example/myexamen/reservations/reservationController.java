@@ -105,4 +105,14 @@ public class reservationController {
         response.setHeader(headerkey,headerValue);
         pdfModel.exportAttestation(response,id);
     }
+    @PostMapping("/rapport/pdf")
+    public void exportRapport(HttpServletResponse response,@RequestParam("date") String date) throws DocumentException, IOException{
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter=new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentateTime=dateFormatter.format(new Date(0));
+        String headerkey="Content-Disposition";
+        String headerValue="attachment;filename=RAPPORT RESERVATION"+currentateTime+".pdf";
+        response.setHeader(headerkey,headerValue);
+        pdfModel.ExportRapport(response,date);
+    }
 }

@@ -1,10 +1,7 @@
 package com.example.myexamen.chambres;
 
-import com.example.myexamen.clients.Clients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.security.auth.callback.CallbackHandler;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,5 +37,4 @@ public class ChambreServiceImpl {
         }
         chambreRepository.deleteById(id);
     }
-
 }

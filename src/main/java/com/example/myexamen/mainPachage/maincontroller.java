@@ -3,13 +3,14 @@ package com.example.myexamen.mainPachage;
 import com.example.myexamen.ExportExcel;
 import com.example.myexamen.VuePackage.vue;
 import com.example.myexamen.VuePackage.vueRepository;
+import com.example.myexamen.chambres.ChambreRepository;
+import com.example.myexamen.clients.ClientsRepository;
 import com.example.myexamen.mailController.MailService;
+import com.example.myexamen.reservations.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,8 +26,20 @@ public class maincontroller {
     MailService mailService;
     @Autowired private
     vueRepository vueRepository;
+    @Autowired private
+    ClientsRepository clientsRepository;
+    @Autowired private ChambreRepository chambreRepository;
+    @Autowired private ReservationRepository reservationRepository;
     @GetMapping("/")
-    public String showHome(Model model, HttpSession session){
+    public String showHome(Model model, HttpSession session)
+    {   long countcli = clientsRepository.count();
+        long countchambre = chambreRepository.count();
+        long countreservation = reservationRepository.count();
+        int countBydate = reservationRepository.allByDate();
+        model.addAttribute("countreservation",countreservation);
+        model.addAttribute("countchambre",countchambre);
+        model.addAttribute("countcli",countcli);
+        model.addAttribute("countBydate",countBydate);
         return ""+SecuriteConnexion(model,session,"index");
     }
     public String SecuriteConnexion(Model model,HttpSession session,String root){
