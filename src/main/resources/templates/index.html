@@ -93,7 +93,31 @@
 				<div class="col-xl-8 mb-30">
 					<div class="card-box height-100-p pd-20">
 						<h5 class="h5 mb-20 text-info">Liste des chambres libres</h5>
-<!--						<div id="chart5"></div>-->
+						<table class="data-table table-hover table-sm">
+							<thead>
+							<tr class="text-info">
+								<th class="table-plus datatable-nosort">#</th>
+								<th>chambre</th>
+								<th>designation</th>
+								<th>prix</th>
+								<th>devise</th>
+								<th>etat</th>
+							</tr>
+							</thead>
+							<tbody>
+							<th:block th:each=" lib : ${chambre}">
+								<tr>
+									<td class="table-plus" style="text-align: center">[[${lib.id}]]</td>
+									<td style="text-align: center">[[${lib.name}]]</td>
+									<td style="text-align: center">[[${lib.designation}]]</td>
+									<td style="text-align: center">[[${lib.prix}]]</td>
+									<td style="text-align: center">[[${lib.devise}]]</td>
+									<td style="text-align: center;color: #a92222;font-size: 20px;">[[${lib.etat}]]</td>
+								</tr>
+							</th:block>
+							</tbody>
+						</table>
+
 					</div>
 				</div>
 				<div class="col-xl-4 mb-30">

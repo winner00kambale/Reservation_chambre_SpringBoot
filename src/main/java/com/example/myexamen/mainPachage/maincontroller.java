@@ -4,6 +4,8 @@ import com.example.myexamen.ExportExcel;
 import com.example.myexamen.VuePackage.vue;
 import com.example.myexamen.VuePackage.vueRepository;
 import com.example.myexamen.chambres.ChambreRepository;
+import com.example.myexamen.chambres.ChambreServiceImpl;
+import com.example.myexamen.chambres.Chambres;
 import com.example.myexamen.clients.ClientsRepository;
 import com.example.myexamen.mailController.MailService;
 import com.example.myexamen.reservations.ReservationRepository;
@@ -30,16 +32,19 @@ public class maincontroller {
     ClientsRepository clientsRepository;
     @Autowired private ChambreRepository chambreRepository;
     @Autowired private ReservationRepository reservationRepository;
+    @Autowired private ChambreServiceImpl service;
     @GetMapping("/")
     public String showHome(Model model, HttpSession session)
     {   long countcli = clientsRepository.count();
         long countchambre = chambreRepository.count();
         long countreservation = reservationRepository.count();
         int countBydate = reservationRepository.allByDate();
+        List<Chambres> chambre = service.listAllByEtat();
         model.addAttribute("countreservation",countreservation);
         model.addAttribute("countchambre",countchambre);
         model.addAttribute("countcli",countcli);
         model.addAttribute("countBydate",countBydate);
+        model.addAttribute("chambre",chambre);
         return ""+SecuriteConnexion(model,session,"index");
     }
     public String SecuriteConnexion(Model model,HttpSession session,String root){

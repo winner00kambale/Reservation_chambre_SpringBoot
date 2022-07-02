@@ -220,8 +220,6 @@
 <div class="left-side-bar">
     <div class="brand-logo">
         <a href="@{/}">
-<!--            <img src="/src/images/linda.png" alt="" class="dark-logo">-->
-<!--            <img src="/src/images/linda.png" style="width: 100px;height: 80px;" alt="" class="light-logo">-->
         </a>
         <div class="close-sidebar" data-toggle="left-sidebar-close">
             <i class="ion-close-round"></i>
@@ -250,10 +248,19 @@
                 </li>
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-house-1"></span><span class="mtext">Paramettres</span>
+                        <span class="micon dw dw-money"></span><span class="mtext">Comptabilite</span>
                     </a>
                     <ul class="submenu">
-                        <li><a th:href="@{/Showchambre}">Show chambres</a></li>
+                        <li><a th:href="@{/payementshow}">Payement</a></li>
+                        <li><a >Rapport Payement</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-settings"></span><span class="mtext">Paramettres</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a th:href="@{/Showchambre}">Chambres</a></li>
                         <li><a th:href="@{/getLog}">Utilisateur</a></li>
                     </ul>
                 </li>
