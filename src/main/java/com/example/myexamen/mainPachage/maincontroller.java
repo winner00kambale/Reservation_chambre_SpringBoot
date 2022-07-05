@@ -8,6 +8,7 @@ import com.example.myexamen.chambres.ChambreServiceImpl;
 import com.example.myexamen.chambres.Chambres;
 import com.example.myexamen.clients.ClientsRepository;
 import com.example.myexamen.mailController.MailService;
+import com.example.myexamen.paiyement.PayementRepository;
 import com.example.myexamen.reservations.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,17 +34,20 @@ public class maincontroller {
     @Autowired private ChambreRepository chambreRepository;
     @Autowired private ReservationRepository reservationRepository;
     @Autowired private ChambreServiceImpl service;
+    @Autowired private PayementRepository payementRepository;
     @GetMapping("/")
     public String showHome(Model model, HttpSession session)
     {   long countcli = clientsRepository.count();
         long countchambre = chambreRepository.count();
         long countreservation = reservationRepository.count();
         int countBydate = reservationRepository.allByDate();
+        int countPayeBuydate = payementRepository.allPayementByDate();
         List<Chambres> chambre = service.listAllByEtat();
         model.addAttribute("countreservation",countreservation);
         model.addAttribute("countchambre",countchambre);
         model.addAttribute("countcli",countcli);
         model.addAttribute("countBydate",countBydate);
+        model.addAttribute("countPayeBuydate",countPayeBuydate);
         model.addAttribute("chambre",chambre);
         return ""+SecuriteConnexion(model,session,"index");
     }

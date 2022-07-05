@@ -2,6 +2,7 @@ var cli =document.getElementById('idcli').value;
 var chambre = document.getElementById('idcha').value;
 var res = document.getElementById('idres').value;
 var nbr = document.getElementById('id1').value;
+var nbrpaye = document.getElementById('idpaye').value;
 var options = {
 	series: [cli],
 	grid: {
@@ -213,7 +214,7 @@ var options3 = {
 };
 
 var options4 = {
-	series: [nbr],
+	series: [nbrpaye],
 	grid: {
 		padding: {
 			top: 0,
