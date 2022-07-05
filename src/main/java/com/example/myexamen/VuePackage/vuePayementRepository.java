@@ -10,4 +10,8 @@ public interface vuePayementRepository extends CrudRepository<vuePayement,Intege
     List<vuePayement> allReservation();
     @Query(value = "SELECT r.id,c.prenom AS client,ch.name AS chambre,R.montant AS prix,r.debut,r.fin,(SELECT DATEDIFF(r.fin,r.debut))AS nombre_jours,(SELECT DATEDIFF(r.fin,CURDATE()))AS Jours_restant,r.montant*(SELECT DATEDIFF(r.fin,r.debut))AS montant,p.date FROM `reservations` AS r INNER JOIN clients AS c ON r.idclient=c.id INNER JOIN chambres AS ch ON r.idchambre=ch.id LEFT JOIN payement AS p on r.id=p.ref_reservation WHERE r.id IN(SELECT payement.ref_reservation FROM payement)",nativeQuery = true)
     List<vuePayement> allReservationPayee();
+    @Query(value = "SELECT r.id,c.prenom AS client,ch.name AS chambre,R.montant AS prix,r.debut,r.fin,(SELECT DATEDIFF(r.fin,r.debut))AS nombre_jours,(SELECT DATEDIFF(r.fin,CURDATE()))AS Jours_restant,r.montant*(SELECT DATEDIFF(r.fin,r.debut))AS montant,p.date FROM `reservations` AS r INNER JOIN clients AS c ON r.idclient=c.id INNER JOIN chambres AS ch ON r.idchambre=ch.id LEFT JOIN payement AS p on r.id=p.ref_reservation WHERE DATE(p.date) = ?",nativeQuery = true)
+    List<vuePayement> rapportPaye(String date);
+    @Query(value = "SELECT SUM(r.montant*(SELECT DATEDIFF(r.fin,r.debut)))AS montant FROM `reservations` AS r INNER JOIN clients AS c ON r.idclient=c.id INNER JOIN chambres AS ch ON r.idchambre=ch.id LEFT JOIN payement AS p on r.id=p.ref_reservation WHERE DATE(p.date) = ?",nativeQuery = true)
+    public float Getsomme(String date);
 }

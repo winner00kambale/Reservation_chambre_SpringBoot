@@ -25,10 +25,10 @@
 <!--main original-->
 
 <div class="main-container">
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
     <div class="card-box mb-30">
-<!--        <div th:if="${message}" class="alert alert-success text-center">-->
-<!--            [[${message}]]-->
-<!--        </div>-->
         <div class="container overflow-hidden"> <br>
             <!--multisteps-form-->
             <div class="multisteps-form">

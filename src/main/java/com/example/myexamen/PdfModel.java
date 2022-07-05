@@ -1,6 +1,8 @@
 package com.example.myexamen;
 
 import com.example.myexamen.VuePackage.vue;
+import com.example.myexamen.VuePackage.vuePayement;
+import com.example.myexamen.VuePackage.vuePayementRepository;
 import com.example.myexamen.VuePackage.vueRepository;
 import com.example.myexamen.chambres.ChambreServiceImpl;
 import com.example.myexamen.chambres.Chambres;
@@ -19,8 +21,10 @@ import java.util.List;
 
 @Component
 public class PdfModel {
+
     @Autowired private ChambreServiceImpl chambreService;
     @Autowired private vueRepository vueRepository;
+    @Autowired private vuePayementRepository payementRepository;
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
         cell.setBackgroundColor(Color.white);
@@ -172,6 +176,83 @@ public class PdfModel {
         writeTableHeader(table);
         writeTableData(table);
         document.add(table);
+        document.add(p4);
+        document.close();
+        document.open();
+    }
+    private void writeTableRapporPayementtHeader(PdfPTable table) {
+        PdfPCell cell = new PdfPCell();
+        cell.setBackgroundColor(Color.white);
+        cell.setPadding(5);
+        Font font = FontFactory.getFont(FontFactory.TIMES);
+        font.setColor(Color.BLACK);
+        cell.setPhrase(new Phrase("id",font));
+        table.addCell(cell);
+        cell.setPhrase(new Phrase("nom client",font));
+        table.addCell(cell);
+        cell.setPhrase(new Phrase("Chambre",font));
+        table.addCell(cell);
+        cell.setPhrase(new Phrase("prix/Jour",font));
+        table.addCell(cell);
+        cell.setPhrase(new Phrase("nombre jours",font));
+        table.addCell(cell);
+        cell.setPhrase(new Phrase("montant total",font));
+        table.addCell(cell);
+        cell.setPhrase(new Phrase("date payement",font));
+        table.addCell(cell);
+    }
+    private void PayementJournalier(PdfPTable table,String date){
+        List<vuePayement> vueList = payementRepository.rapportPaye(date);
+        PdfPCell cell = new PdfPCell();
+        cell.setBackgroundColor(Color.WHITE);
+        com.lowagie.text.Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN);
+        font.setColor(Color.BLACK);
+
+//        com.lowagie.text.Font font2 = FontFactory.getFont(FontFactory.TIMES_BOLD);
+//        font2.setColor(Color.BLACK);
+//        font2.setSize(17);
+//        float somme=0;
+        for (vuePayement vues : vueList){
+            table.addCell(""+vues.getId());
+            table.addCell(vues.getClient());
+            table.addCell(vues.getChambre());
+            table.addCell(""+vues.getPrix()+ "USD");
+            table.addCell(""+vues.getNombre_jours());
+            table.addCell(""+vues.getMontant() +"USD");
+            table.addCell(""+vues.getDate());
+        }
+//        cell.setPhrase(new Phrase("TOTAL", font2));
+//        table.addCell(cell);
+//        table.addCell("");
+//        cell.setPhrase(new Phrase(" "+ payementRepository.Getsomme(date) + " USD ", font2));
+//        table.addCell(cell);
+    }
+    public void ExportRapportPayement(HttpServletResponse response, String date)throws DocumentException, IOException{
+        Document document=new Document(PageSize.A4);
+        PdfWriter.getInstance(document,response.getOutputStream());
+        document.open();
+        Font font0=FontFactory.getFont(FontFactory.TIMES_ITALIC);
+        font0.setSize(12);
+        font0.setColor(Color.BLACK);
+        Font fonts=FontFactory.getFont(FontFactory.TIMES_BOLD);
+        fonts.setSize(16);
+        fonts.setColor(Color.RED);
+        Paragraph p4=new Paragraph("Agent Hotel Linda Goma",font0);
+        p4.setAlignment(Paragraph.ALIGN_RIGHT);
+        Paragraph ps=new Paragraph("TOTAL :  "+ payementRepository.Getsomme(date) + " USD ",fonts);
+        ps.setAlignment(Paragraph.ALIGN_RIGHT);
+        Image image = Image.getInstance("C:\\images\\rapport.gif");
+        image.scaleAbsolute(527,60);
+        image.setAlignment(Paragraph.ALIGN_CENTER);
+        document.add(image);
+        PdfPTable table=new PdfPTable(7);
+        table.setWidthPercentage(100f);
+        table.setWidths(new float[]{1.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f});
+        table.setSpacingBefore(10);
+        writeTableRapporPayementtHeader(table);
+        PayementJournalier(table,date);
+        document.add(table);
+        document.add(ps);
         document.add(p4);
         document.close();
         document.open();

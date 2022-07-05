@@ -23,12 +23,10 @@ public class clientController {
         List<Clients> Listclients = service.listAll();
         model.addAttribute("Listclients", Listclients);
         return maincontroller.SecuriteConnexion(model,session,"clients");
-//        return "clients";
     }
     @GetMapping("/showSavecli")
     public  String showSavecli(Model model,HttpSession session){
         return maincontroller.SecuriteConnexion(model,session,"clientSave");
-//        return "clientSave";
     }
     @PostMapping("/addClient")
     public String showSave(@RequestParam("nom") String nom, @RequestParam("postnom") String postnom,

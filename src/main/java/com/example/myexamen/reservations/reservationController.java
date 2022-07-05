@@ -53,12 +53,10 @@ public class reservationController {
     model.addAttribute("chambreLibre",chambreLibre);
     model.addAttribute("chambreOccupee",chambreOccupee);
         return maincontroller.SecuriteConnexion(model,session,"Reservations");
-//        return "Reservations";
     }
     @GetMapping("/reservation/add")
     public String addReservation(Model model,HttpSession session){
         return maincontroller.SecuriteConnexion(model,session,"ReservationSave");
-//        return "ReservationSave";
     }
     @GetMapping("/reservation/add/{id}")
     public String showEditReservation(@PathVariable("id") Integer id, Model model, RedirectAttributes ra){
