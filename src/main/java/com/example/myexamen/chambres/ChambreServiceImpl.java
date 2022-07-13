@@ -2,6 +2,11 @@ package com.example.myexamen.chambres;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +20,16 @@ public class ChambreServiceImpl {
     public void save(Chambres chambre){
         chambreRepository.save(chambre);
     }
-    public void insererchambre(String name,String designation,float prix,String devise){Chambres c = new Chambres();
+    public void insererchambre(String name, String designation, float prix, String devise,MultipartFile file){Chambres c = new Chambres();
+       String filename= StringUtils.cleanPath(file.getOriginalFilename());
+       if(filename.contains("..")){
+           System.out.println("null");
+       }
+       try{
+           c.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+       }catch (Exception e){
+           throw new RuntimeException(e);
+       }
        c.setName(name);
        c.setDesignation(designation);
        c.setPrix(prix);

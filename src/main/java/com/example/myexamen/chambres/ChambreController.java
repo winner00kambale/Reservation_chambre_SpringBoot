@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
@@ -38,10 +39,10 @@ public class ChambreController {
         return maincontroller.SecuriteConnexion(model,session,"ChambreSave");
     }
     @PostMapping("/room/save")
-    public String saveRoom(@RequestParam("name") String name, @RequestParam("designation") String designation,
+    public String saveRoom(@RequestParam("image")MultipartFile file, @RequestParam("name") String name, @RequestParam("designation") String designation,
                            @RequestParam("prix") float prix, @RequestParam("devise") String devise, RedirectAttributes ra){
         try{
-            service.insererchambre(name,designation,prix,devise);
+            service.insererchambre(name,designation,prix,devise,file);
             ra.addFlashAttribute("message"," saved succesfuly ");
             return "redirect:/Showchambre";
         }catch (Exception e){

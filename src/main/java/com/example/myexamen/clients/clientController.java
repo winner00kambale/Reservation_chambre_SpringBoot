@@ -44,6 +44,22 @@ public class clientController {
         }
 
     }
+    @PostMapping("/addCompteClient")
+    public String compteSave(@RequestParam("nom") String nom, @RequestParam("postnom") String postnom,
+                           @RequestParam("prenom") String prenom, @RequestParam("genre") String genre,
+                           @RequestParam("nationalite") String nationalite, @RequestParam("profession") String profession,
+                           @RequestParam("etatcivil") String etatcivil, @RequestParam("mail") String mail,
+                           @RequestParam("adresse") String adresse, @RequestParam("telephone") String telephone, RedirectAttributes ra){
+        try{
+            service.insererclient(nom,postnom,prenom,genre,nationalite,profession,etatcivil,mail,adresse,telephone);
+            ra.addFlashAttribute("message","saved succesfuly");
+            return "redirect:/CompteClient";
+        }catch (Exception e){
+            ra.addFlashAttribute("message","ce client existe deja");
+            return "redirect:/CompteClient";
+        }
+
+    }
 
     @GetMapping("client/edit/{id}")
     public String showUpdate(@PathVariable("id") Integer id,Model model, RedirectAttributes ra ){

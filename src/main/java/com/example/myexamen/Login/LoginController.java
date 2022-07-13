@@ -1,7 +1,9 @@
 package com.example.myexamen.Login;
 
+import com.example.myexamen.CompteClient.CompteClientRepository;
 import com.example.myexamen.chambres.ChambreNotFoundException;
 import com.example.myexamen.chambres.Chambres;
+import com.example.myexamen.clients.Clients;
 import com.example.myexamen.mainPachage.maincontroller;
 import com.example.myexamen.reservations.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import java.util.Optional;
 @Controller
 public class LoginController {
     @Autowired private LoginRepository loginRepo;
+    @Autowired private CompteClientRepository compteClientRepository;
     @Autowired private maincontroller maincontroller;
     @Autowired ReservationService reserv;
     @Autowired private LoginService loginService;
@@ -41,6 +44,25 @@ public class LoginController {
         }else {
             ra.addFlashAttribute("error","Verifier votre UserName et votre mot Password svp !!!");
             return "redirect:/login";
+        }
+    }
+    @PostMapping("/check_loginClient")
+    public String testerLoginClient(@RequestParam("nom") String nom, @RequestParam("mail") String mail, Model model, RedirectAttributes ra,HttpServletRequest request){
+        Optional<Clients> log = compteClientRepository.testCompte(nom,mail);
+        String getprenom = compteClientRepository.Getprenom(mail);
+        if (log.isPresent()){
+            List<String> msg=(List<String>) request.getSession().getAttribute("MY_SESSION_MESSAGE");
+            if (msg==null){
+                msg=new ArrayList<>();
+                request.getSession().setAttribute("MY_SESSION_MESSAGE",msg);
+            }
+            msg.add(getprenom);
+            request.getSession().setAttribute("MY_SESSION_MESSAGE",msg);
+            reserv.addTest();
+            return "redirect:/home";
+        }else {
+            ra.addFlashAttribute("error","Verifier votre UserName et votre mot Password svp !!!");
+            return "redirect:/LoginClient";
         }
     }
     @GetMapping("/getLog")

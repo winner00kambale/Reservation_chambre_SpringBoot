@@ -1,7 +1,6 @@
 package com.example.myexamen.VuePackage;
 
 import javax.persistence.*;
-// r.id,c.prenom AS client,ch.name AS chambre,R.montant AS prix,r.debut,r.fin,(SELECT DATEDIFF(r.fin,r.debut))AS nombre_jours,(SELECT DATEDIFF(r.fin,CURDATE()))AS Jours_restant,r.montant*(SELECT DATEDIFF(r.fin,r.debut))AS montant FROM `reservations` AS r INNER JOIN clients AS c ON r.idclient=c.id INNER JOIN chambres AS ch ON r.idchambre=ch.id WHERE ch.id=?;",nativeQuery =
 @Entity
 @Table(name = "vue")
 public class vue {
@@ -89,7 +88,5 @@ public class vue {
 
     private int Jours_restant;
     private float montant;
-
-
 
 }

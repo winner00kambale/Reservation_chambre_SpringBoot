@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "chambres")
-//@NamedStoredProcedureQueries({@NamedStoredProcedureQuery(name ="firstProcedure",procedureName = "ListChambre")})
 public class Chambres {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +18,8 @@ public class Chambres {
     private String devise;
     @Column(name = "etat")
     private String etat;
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private String image;
 
     public Integer getId() {
         return id;
@@ -66,5 +67,13 @@ public class Chambres {
 
     public void setEtat(String etat) {
         this.etat = etat;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

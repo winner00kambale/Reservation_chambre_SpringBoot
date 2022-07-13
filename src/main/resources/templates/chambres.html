@@ -41,6 +41,7 @@
                 <thead>
                 <tr>
                     <th class="table-plus datatable-nosort">#</th>
+                    <th>photo</th>
                     <th>nom chambre</th>
                     <th>designation</th>
                     <th>prix</th>
@@ -53,6 +54,9 @@
                 <th:block th:each=" chambre : ${chambrelist}">
                     <tr>
                         <td class="table-plus">[[${chambre.id}]]</td>
+                        <td class="with-img">
+                            <img th:src="@{'data:image/jpeg;base64,'+${chambre.image}}" class="rounded-circle" style="width: 90px;height: 90px;">
+                        </td>
                         <td>[[${chambre.name}]]</td>
                         <td>[[${chambre.designation}]]</td>
                         <td>[[${chambre.prix}]]</td>

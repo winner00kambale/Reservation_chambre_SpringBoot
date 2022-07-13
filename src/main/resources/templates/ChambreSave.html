@@ -45,7 +45,7 @@
                 <!--form panels-->
                 <div class="row">
                     <div class="col-12 col-lg-8 m-auto">
-                        <form class="multisteps-form__form" action="/room/save" method="post">
+                        <form class="multisteps-form__form" action="/room/save" method="post" enctype="multipart/form-data">
                             <div class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
                                 <h3 class="multisteps-form__title">Ajouter une chambre</h3>
                                 <div class="multisteps-form__content">
@@ -58,6 +58,10 @@
                                         <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                             <label class="col-form-label-lg">Designation de la chambre</label>
                                             <input class="multisteps-form__input form-control" type="text" name="designation"   placeholder="saisir la designation" required/>
+                                        </div>
+                                        <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                            <label class="col-form-label-lg">Photo de la chambre</label>
+                                            <input class="multisteps-form__input form-control" type="file" name="image" required/>
                                         </div>
                                     </div>
                                     <div class="form-row mt-4">
